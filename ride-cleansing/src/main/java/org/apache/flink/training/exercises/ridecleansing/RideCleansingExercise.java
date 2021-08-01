@@ -24,7 +24,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.training.exercises.common.datatypes.TaxiRide;
 import org.apache.flink.training.exercises.common.sources.TaxiRideGenerator;
 import org.apache.flink.training.exercises.common.utils.ExerciseBase;
-import org.apache.flink.training.exercises.common.utils.MissingSolutionException;
+import org.apache.flink.training.exercises.common.utils.GeoUtils;
 
 /**
  * The "Ride Cleansing" exercise from the Flink training in the docs.
@@ -48,10 +48,9 @@ public class RideCleansingExercise extends ExerciseBase {
         // start the data generator
         DataStream<TaxiRide> rides = env.addSource(rideSourceOrTest(new TaxiRideGenerator()));
 
-        DataStream<TaxiRide> filteredRides =
-                rides
-                        // filter out rides that do not start or stop in NYC
-                        .filter(new NYCFilter());
+        DataStream<TaxiRide> filteredRides = rides
+                // filter out rides that do not start or stop in NYC
+                .filter(new NYCFilter());
 
         // print the filtered stream
         printOrTest(filteredRides);
@@ -60,11 +59,16 @@ public class RideCleansingExercise extends ExerciseBase {
         env.execute("Taxi Ride Cleansing");
     }
 
-    private static class NYCFilter implements FilterFunction<TaxiRide> {
+    static class NYCFilter implements FilterFunction<TaxiRide> {
 
         @Override
-        public boolean filter(TaxiRide taxiRide) throws Exception {
-            throw new MissingSolutionException();
+        public boolean filter(TaxiRide taxiRide) {
+            //This exception for solving exercise - RideCleansingTest will fail until correct solution
+            //throw new MissingSolutionException();
+            return (GeoUtils.isInNYC(taxiRide.startLon, taxiRide.startLat)
+                    &&
+                    GeoUtils.isInNYC(taxiRide.endLon, taxiRide.endLat)
+            );
         }
     }
 }

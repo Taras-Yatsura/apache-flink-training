@@ -70,8 +70,8 @@ public class RidesAndFaresExercise extends ExerciseBase {
             extends RichCoFlatMapFunction<TaxiRide, TaxiFare, Tuple2<TaxiRide, TaxiFare>> {
 
         @Override
-        public void open(Configuration config) throws Exception {
-            throw new MissingSolutionException();
+        public void open(Configuration config) /*throws Exception*/ {
+            //throw new MissingSolutionException();
         }
 
         @Override
