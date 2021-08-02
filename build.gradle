@@ -49,7 +49,7 @@ subprojects {
     apply plugin: 'eclipse'
 
     ext {
-        javaVersion = '1.8'
+        javaVersion = '11'
         flinkVersion = '1.13.1'
         scalaBinaryVersion = '2.12'
         log4jVersion = '2.12.1'

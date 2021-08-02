@@ -81,6 +81,11 @@ public class TaxiRideGenerator implements SourceFunction<TaxiRide> {
             // prepare for the next batch
             id += BATCH_SIZE;
 
+            if (id >= 100)
+            {
+                cancel();
+            }
+
             // don't go too fast
             Thread.sleep(BATCH_SIZE * SLEEP_MILLIS_PER_EVENT);
         }

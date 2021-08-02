@@ -3,7 +3,10 @@ package datatypes;
 import org.apache.flink.training.exercises.common.datatypes.TaxiRide;
 import org.apache.flink.training.exercises.common.utils.GeoUtils;
 
+import java.util.Objects;
+
 public class EnrichedRide extends TaxiRide {
+    private static final long serialVersionUID = -5350047780419384787L;
     public int startCell;
     public int endCell;
 
@@ -36,5 +39,19 @@ public class EnrichedRide extends TaxiRide {
                "," +
                endCell;
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) { return false; }
+        if (!super.equals(o)) { return false; }
+        EnrichedRide that = (EnrichedRide) o;
+        return startCell == that.startCell && endCell == that.endCell;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), startCell, endCell);
     }
 }
